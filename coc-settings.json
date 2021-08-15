@@ -1,0 +1,6 @@
+{
+  "clangd.enabled": true ,
+  "coc.preferences.formatOnSaveFiletypes": [
+  "cpp", "json"
+  ]
+}
