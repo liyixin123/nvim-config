@@ -86,7 +86,7 @@ noremap tml :+tabmove<CR>
 
 
 " Compile function
-noremap <LEADER>r :call CompileRunGcc()<CR>
+noremap <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
 	if &filetype == 'c'
@@ -136,7 +136,7 @@ endfunc
 
 "============ plugin
 call plug#begin()
-" coc
+" Auto complete 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 状态栏美化
 Plug 'vim-airline/vim-airline'
@@ -146,6 +146,13 @@ Plug 'theniceboy/nvim-deus'
 " General Highlighter
 " Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'RRethy/vim-illuminate'
+
+" Markdown
+" Markdown
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
+Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
+Plug 'dkarter/bullets.vim'
 call plug#end()
 "============
 
@@ -182,6 +189,7 @@ let g:coc_global_extensions = ['coc-json',
 			\ 'coc-git',
 			\ 'coc-explorer',
 			\ 'coc-cmake',
+			\'coc-yaml',
 			\ 'coc-clangd']
 
 
@@ -190,18 +198,21 @@ let g:coc_global_extensions = ['coc-json',
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 nnoremap <leader>e :CocCommand explorer<CR>
+
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <TAB>
 	\ pumvisible() ? "\<C-n>" :
 	\ <SID>check_back_space() ? "\<TAB>" :
 	\ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
+"inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <c-o> coc#refresh()
@@ -214,6 +225,28 @@ function! Show_documentation()
 	endif
 endfunction
 " nnoremap <LEADER>h :call Show_documentation()<CR>
+"===coc end==
+"
+" ===
+" === vim-markdown-toc
+" ===
+"let g:vmt_auto_update_on_save = 0
+"let g:vmt_dont_insert_fence = 1
+let g:vmt_cycle_list_item_markers = 1
+let g:vmt_fence_text = 'TOC'
+let g:vmt_fence_closing_text = '/TOC'
+
+" ===
+" === vim-instant-markdown
+" ===
+let g:instant_markdown_slow = 0
+let g:instant_markdown_autostart = 0
+" let g:instant_markdown_open_to_the_world = 1
+" let g:instant_markdown_allow_unsafe_content = 1
+" let g:instant_markdown_allow_external_content = 0
+" let g:instant_markdown_mathjax = 1
+let g:instant_markdown_autoscroll = 1
+
 
 " ===
 " === xtabline
