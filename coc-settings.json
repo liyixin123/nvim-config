@@ -1,6 +1,9 @@
 {
-  "clangd.enabled": true ,
-  "coc.preferences.formatOnSaveFiletypes": [
-  "cpp", "json"
-  ]
+	"clangd.enabled": true,
+	"coc.preferences.formatOnSaveFiletypes": [
+		"cpp",
+		"json"
+	],
+	"snippets.priority": 90,
+	"snippets.userSnippetsDirectory": "~/.config/nvim/Ultisnips"
 }

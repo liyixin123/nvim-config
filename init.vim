@@ -19,6 +19,7 @@ endif
 set autoindent
 set number
 syntax on
+set clipboard=unnamed
 set splitbelow
 
 filetype indent on
@@ -29,8 +30,16 @@ filetype indent on
 let mapleader = " "
 " Save & quit
 noremap Q :q<CR>
+noremap S :w<CR>
 " Press <SPACE> + q to close the window below the current window
 noremap <LEADER>q <C-w>j:q<CR>
+
+" make Y to copy till the end of the line
+nnoremap Y y$
+
+" Copy to system clipboard
+vnoremap Y "+y
+
 
 " ===
 " === Window management
@@ -185,11 +194,13 @@ hi NonText ctermfg=gray guifg=grey10
 "===
 "=== coc.nvim
 "===
-let g:coc_global_extensions = ['coc-json',
+let g:coc_global_extensions = [
+			\ 'coc-json',
 			\ 'coc-git',
 			\ 'coc-explorer',
 			\ 'coc-cmake',
 			\'coc-yaml',
+			\ 'coc-snippets',
 			\ 'coc-clangd']
 
 
@@ -197,23 +208,29 @@ let g:coc_global_extensions = ['coc-json',
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" coc-explorer
 nnoremap <leader>e :CocCommand explorer<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
+	"\ pumvisible() ? "\<C-n>" :
+	\ pumvisible() ? coc#_select_confirm() :
+	\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap',['snippets-expand-jump',''])\<CR>" :
 	\ <SID>check_back_space() ? "\<TAB>" :
 	\ coc#refresh()
+inoremap <expr>j pumvisible() ? "\<C-n>" : "\j"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <space> pumvisible() ? coc#_select_confirm() : "\<space>"
 
 function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" coc-snippets
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <c-o> coc#refresh()
