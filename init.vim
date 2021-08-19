@@ -90,8 +90,8 @@ noremap tl :+tabnext<CR>
 " Move the tabs with tmn and tmi
 noremap tmh :-tabmove<CR>
 noremap tml :+tabmove<CR>
-
-
+noremap <tab> gt  
+noremap <s-tab> gT
 
 
 " Compile function
@@ -147,6 +147,8 @@ endfunc
 call plug#begin()
 " Auto complete 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Debugger
+"Plug 'puremourning/vimspector'
 " 状态栏美化
 Plug 'vim-airline/vim-airline'
 Plug 'mg979/vim-xtabline'
@@ -156,7 +158,6 @@ Plug 'theniceboy/nvim-deus'
 " Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'RRethy/vim-illuminate'
 
-" Markdown
 " Markdown
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
@@ -242,7 +243,22 @@ function! Show_documentation()
 		call CocAction('doHover')
 	endif
 endfunction
-" nnoremap <LEADER>h :call Show_documentation()<CR>
+nnoremap <space><F2> :call Show_documentation()<CR>
+nnoremap <silent><nowait> <LEADER>d :CocList diagnostics<cr>
+nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
+nnoremap <c-c> :CocCommand<CR>
+" Useful commands
+nmap <F2> <Plug>(coc-rename)
+nnoremap <silent> <space>y :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD :tab sp<CR><Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+
 "===coc end==
 "
 " ===
