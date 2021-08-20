@@ -163,6 +163,9 @@ Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['text', 'markdown', 'vim-plug'] }
 Plug 'mzlogin/vim-markdown-toc', { 'for': ['gitignore', 'markdown', 'vim-plug'] }
 Plug 'dkarter/bullets.vim'
+
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end()
 "============
 
@@ -292,3 +295,10 @@ let g:xtabline_settings.enable_persistance = 0
 let g:xtabline_settings.last_open_first = 1
 noremap to :XTabCycleMode<CR>
 noremap \p :echo expand('%:p')<CR>
+
+" ===
+" === auto-pairs
+" ===
+
+let g:AutoPairsShortcutJump = '<C-i>' 
+let g:AutoPairsShortcutBackInsert = '<C-z>'
