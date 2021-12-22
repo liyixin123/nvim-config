@@ -18,6 +18,7 @@ endif
 "
 set autoindent
 set number
+set relativenumber
 syntax on
 set clipboard=unnamed
 set splitbelow
@@ -214,6 +215,8 @@ let g:coc_global_extensions = [
 			\ 'coc-cmake',
 			\'coc-yaml',
 			\ 'coc-snippets',
+			\'coc-tsserver',
+			\'coc-python',
 			\ 'coc-clangd']
 
 
