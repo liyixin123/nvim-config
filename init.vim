@@ -175,6 +175,7 @@ Plug 'preservim/nerdcommenter'
 
 " Go
 Plug 'fatih/vim-go',{'for':['go','vim-plug'],'tag':'*'}
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 "============
@@ -218,6 +219,7 @@ let g:coc_global_extensions = [
 			\'coc-tsserver',
 			\'coc-python',
 			\'coc-translator',
+			\'coc-rust-analyzer',
 			\ 'coc-clangd']
 
 
@@ -229,6 +231,7 @@ let g:coc_global_extensions = [
 nnoremap <leader>e :CocCommand explorer<CR>
 " coc-translator
 nmap ts <Plug>(coc-translator-p)
+nnoremap <silent> ga :CocAction<CR>
 " use <tab> for trigger completion and navigate to the next complete item
 inoremap <silent><expr> <TAB>
 	"\ pumvisible() ? "\<C-n>" :
